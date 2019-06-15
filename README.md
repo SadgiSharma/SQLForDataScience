@@ -51,10 +51,10 @@ Note: Primary Keys are denoted in the ER-Diagram with a yellow key icon.
 	Answer:
 	No
 	
-	SQL code used to arrive at answer:Select *
-                                          From user
-                                          
-Where id is Null;
+	SQL code used to arrive at answer:
+	Select *
+        From user
+        Where id is Null;
 	
 	
 
@@ -90,13 +90,10 @@ Where id is Null;
 5. List the cities with the most reviews in descending order:
 
 	SQL code used to arrive at answer: (Most reviews include the number of reviews done by a person with one id)
-                                          Select city, sum(review_count) as rev
-
-                                          From business
-                                          
-Group by City
-                                          
-Order by rev desc;
+        Select city, sum(review_count) as rev
+        From business
+        Group by City
+        Order by rev desc;
 	
 	
 	Copy and Paste the Result Below:
@@ -136,11 +133,10 @@ city            |   rev |
 
 i. Avon
 
-SQL code used to arrive at answer:Select count(stars) as count, stars as starrating
-                                  
+SQL code used to arrive at answer:
+Select count(stars) as count, stars as starrating
 From business
-
-                                  Where city='Avon';
+Where city='Avon';
 
 
 Copy and Paste the Resulting Table Below (2 columns – star rating and count):
@@ -151,11 +147,10 @@ count | starrating |
 
 ii. Beachwood
 
-SQL code used to arrive at answer:Select count(stars) as count, stars as starrating
-
-                                  From business
-
-                                  Where city='Beachwood';
+SQL code used to arrive at answer:
+Select count(stars) as count, stars as starrating
+From business
+Where city='Beachwood';
 
 
 Copy and Paste the Resulting Table Below (2 columns – star rating and count):
@@ -167,12 +162,11 @@ count | starrating |
 
 7. Find the top 3 users based on their total number of reviews:
 		
-	SQL code used to arrive at answer:Select id, review_count, name
-                                          
-From user
-                                          
-Order by review_count desc
-Limit 3;
+	SQL code used to arrive at answer:
+	Select id, review_count, name
+        From user
+        Order by review_count desc
+        Limit 3;
 	
 		
 	Copy and Paste the Result Below:
@@ -189,11 +183,8 @@ Limit 3;
 	Please explain your findings and interpretation of the results: There is no correlation between having fans and writing more reviews. This can be seen through the below mentioned query. A user who has written 2000 reviews has 253 fans while another user who wrote 609 reviews has 503 fans. There is no positive correlation between the two factors. 
 
 Select review_count, fans
-
 From user
-
 Group by id
-
 Order by fans desc;
 
 Output:
@@ -237,17 +228,13 @@ Output:
 	
 	SQL code used to arrive at answer:
 Select count(text)
-
 From review
-
 Where text like '%love%';
 
 
 
 Select count(text)
-
 From Review
-
 Where text like '%hate%';
 
 	
@@ -257,9 +244,7 @@ Where text like '%hate%';
 	SQL code used to arrive at answer:
 Select id, fans, name
 From user
-
 Order by fans desc
-
 Limit (10);
 	
 	
@@ -288,12 +273,10 @@ Key:
 26% - 75% - Medium relationship
 76% - 100% - Strong relationship
 	
-	SQL code used to arrive at answer:Select name, fans, useful, funny, review_count
-                                          
+	SQL code used to arrive at answer:
+Select name, fans, useful, funny, review_count
 From user
-
-                                          Order by fans desc
-                                          
+Order by fans desc
 Limit 10;
 	
 	
@@ -324,39 +307,31 @@ Part 2: Inferences and Analysis
 
 1. Pick one city and category of your choice and group the businesses in that city or category by their overall star rating. Compare the businesses with 2-3 stars to the businesses with 4-5 stars and answer the following questions. Include your code.
 	
-i. Do the two groups you chose to analyze have a different distribution of hours? As per the query results, it can be seen that, the businesses with 4-5 ratings run for shorter time than the businesses with ratings 2-3. 
+i. Do the two groups you chose to analyze have a different distribution of hours? 
+As per the query results, it can be seen that, the businesses with 4-5 ratings run for shorter time than the businesses with ratings 2-3. 
 
 
-ii. Do the two groups you chose to analyze have a different number of reviews? Yes, the review count for two groups are different. Businesses with ratings between 4-5 stars have more reviews than the businesses with ratings between 2 and 3. Total reviews for 4-5 star place is 272 while it is only 70 for places with ratings between 2 and 3.
+ii. Do the two groups you chose to analyze have a different number of reviews? 
+Yes, the review count for two groups are different. Businesses with ratings between 4-5 stars have more reviews than the businesses with ratings between 2 and 3. Total reviews for 4-5 star place is 272 while it is only 70 for places with ratings between 2 and 3.
          
          
-iii. Are you able to infer anything from the location data provided between these two groups? Explain. Every business is in a different area as they have different postal codes. Also, there are 13 addresses where restaurants with 4-5 ratings are situated while there are only 7 postal codes where restaurants with ratings 2-3 are situated. 
+iii. Are you able to infer anything from the location data provided between these two groups? Explain. 
+Every business is in a different area as they have different postal codes. Also, there are 13 addresses where restaurants with 4-5 ratings are situated while there are only 7 postal codes where restaurants with ratings 2-3 are situated. 
 
 SQL code used for analysis: City: Toronto, Category: Food
 Select sum(review_count), min(hours), category,name,city,avg(stars),count(postal_code),
        
       Case 
-            
-           
-          When stars Between 2 and 3 then '2-3 stars'
-            
-           
-          When stars Between 4 AND 5 then '4-5 stars'
-		       
+           When stars Between 2 and 3 then '2-3 stars'
+           When stars Between 4 AND 5 then '4-5 stars'
       End as stars
 
 From business
-
 Inner join hours
-
 On business.id=hours.business_id
-
 Inner join category
-
 On category.business_id=business.id
-
 Where city='Toronto' and category='Food'
-
 Group by stars;
 
 Output:
@@ -378,11 +353,10 @@ ii. Difference 2: There are 1520 cities with closed businesses and 8480 cities h
          
          
          
-SQL code used for analysis:Select avg(review_count), max(review_count), max(stars), min(stars), avg(stars), count(City), is_open
-                           
+SQL code used for analysis:
+Select avg(review_count), max(review_count), max(stars), min(stars), avg(stars), count(City), is_open
 From business
-
-                           Group by is_open;
+Group by is_open;
 
 
 Output:
